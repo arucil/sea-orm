@@ -1,7 +1,10 @@
 use heck::{ToLowerCamelCase, ToSnakeCase};
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote, quote_spanned};
-use syn::{punctuated::Punctuated, token::Comma, Data, DataEnum, Fields, Lit, Meta, Variant};
+use syn::{
+    parse::Error, punctuated::Punctuated, token::Comma, Data, DataEnum, Expr, Fields, Lit, Meta,
+    Variant,
+};
 
 /// Derive a Column name for an enum type
 pub fn impl_default_as_str(ident: &Ident, data: &Data) -> syn::Result<TokenStream> {
@@ -43,11 +46,30 @@ pub fn impl_default_as_str(ident: &Ident, data: &Data) -> syn::Result<TokenStrea
                                 if name == "column_name" {
                                     if let Lit::Str(litstr) = &nv.lit {
                                         column_name = litstr.value();
+                                    } else {
+                                        return Err(Error::new(
+                                            nv.lit.span(),
+                                            format!("Invalid column_name {:?}", nv.lit),
+                                        ));
                                     }
-                                }
-                                if name == "table_name" {
+                                } else if name == "table_name" {
                                     if let Lit::Str(litstr) = &nv.lit {
                                         column_name = litstr.value();
+                                    } else {
+                                        return Err(Error::new(
+                                            nv.lit.span(),
+                                            format!("Invalid table_name {:?}", nv.lit),
+                                        ));
+                                    }
+                                } else if name == "table_name_expr" {
+                                    if let Lit::Str(litstr) = &nv.lit {
+                                        let column_name = litstr.parse::<Expr>()?;
+                                        return Ok(quote! { #column_name });
+                                    } else {
+                                        return Err(Error::new(
+                                            nv.lit.span(),
+                                            format!("Invalid table_name_expr {:?}", nv.lit),
+                                        ));
                                     }
                                 }
                             }
@@ -55,9 +77,9 @@ pub fn impl_default_as_str(ident: &Ident, data: &Data) -> syn::Result<TokenStrea
                     }
                 }
             }
-            quote! { #column_name }
+            Ok(quote! { #column_name })
         })
-        .collect();
+        .collect::<syn::Result<Vec<_>>>()?;
 
     Ok(quote!(
         #[automatically_derived]
