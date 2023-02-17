@@ -388,6 +388,7 @@ impl EntityWriter {
     pub fn gen_import(with_serde: &WithSerde) -> TokenStream {
         let prelude_import = quote!(
             use sea_orm::entity::prelude::*;
+            
         );
 
         match with_serde {
@@ -431,8 +432,8 @@ impl EntityWriter {
         };
         let table_name = entity.table_name.as_str();
         let table_name = quote! {
-            fn table_name(&self) -> &str {
-                #table_name
+            fn table_name(&self) -> std::borrow::Cow<str> {
+                #table_name.into()
             }
         };
         quote! {

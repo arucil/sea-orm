@@ -6,8 +6,8 @@ use sea_orm::entity::prelude::*;
 pub struct Entity;
 
 impl EntityName for Entity {
-    fn table_name(&self) -> &str {
-        "collection_float"
+    fn table_name(&self) -> std::borrow::Cow<str> {
+        "collection_float".into()
     }
 }
 

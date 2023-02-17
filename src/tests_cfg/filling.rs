@@ -24,10 +24,10 @@ pub enum Column {
 
 // Then, customize each column names here.
 impl IdenStatic for Column {
-    fn as_str(&self) -> &str {
+    fn as_str(&self) -> std::borrow::Cow<str> {
         match self {
             // Override column names
-            Self::Id => "id",
+            Self::Id => "id".into(),
             // Leave all other columns using default snake-case values
             _ => self.default_as_str(),
         }

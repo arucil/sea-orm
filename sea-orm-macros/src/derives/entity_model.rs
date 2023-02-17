@@ -73,8 +73,8 @@ pub fn expand_derive_entity_model(data: Data, attrs: Vec<Attribute>) -> syn::Res
                         #schema_name
                     }
 
-                    fn table_name(&self) -> &str {
-                        #table_name
+                    fn table_name(&self) -> std::borrow::Cow<str> {
+                        #table_name.into()
                     }
                 }
             }

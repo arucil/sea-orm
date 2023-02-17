@@ -10,8 +10,8 @@ impl EntityName for Entity {
         Some("schema_name")
     }
 
-    fn table_name(&self) -> &str {
-        "rust_keyword"
+    fn table_name(&self) -> std::borrow::Cow<str> {
+        "rust_keyword".into()
     }
 }
 

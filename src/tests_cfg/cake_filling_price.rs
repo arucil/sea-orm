@@ -9,8 +9,8 @@ impl EntityName for Entity {
         Some("public")
     }
 
-    fn table_name(&self) -> &str {
-        "cake_filling_price"
+    fn table_name(&self) -> std::borrow::Cow<str> {
+        "cake_filling_price".into()
     }
 }
 

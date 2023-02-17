@@ -18,8 +18,8 @@ macro_rules! select_def {
         }
 
         impl IdenStatic for $ident {
-            fn as_str(&self) -> &str {
-                $str
+            fn as_str(&self) -> std::borrow::Cow<str> {
+                $str.into()
             }
         }
     };
@@ -32,8 +32,9 @@ impl<E> Select<E>
 where
     E: EntityTrait,
 {
-    pub(crate) fn apply_alias(mut self, pre: &str) -> Self {
+    pub(crate) fn apply_alias<S>(mut self, pre: S) -> Self where S: AsRef<str> {
         self.query().exprs_mut_for_each(|sel| {
+            let pre = pre.as_ref();
             match &sel.alias {
                 Some(alias) => {
                     let alias = format!("{}{}", pre, alias.to_string().as_str());

@@ -564,6 +564,7 @@ pub trait ActiveModelTrait: Clone + Debug {
 /// ### Example
 /// ```ignore
 /// use sea_orm::entity::prelude::*;
+/// 
 ///
 ///  // Use [DeriveEntity] to derive the EntityTrait automatically
 /// #[derive(Copy, Clone, Default, Debug, DeriveEntity)]
@@ -571,8 +572,8 @@ pub trait ActiveModelTrait: Clone + Debug {
 ///
 /// /// The [EntityName] describes the name of a table
 /// impl EntityName for Entity {
-///     fn table_name(&self) -> &str {
-///         "cake"
+///     fn table_name(&self) -> std::borrow::Cow<str> {
+///         "cake".into()
 ///     }
 /// }
 ///

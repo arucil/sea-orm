@@ -13,8 +13,8 @@ impl EntityName for Entity {
     fn schema_name(&self) -> Option< &str > {
         Some("schema_name")
     }
-    fn table_name(&self) -> &str {
-        "task"
+    fn table_name(&self) -> std::borrow::Cow<str> {
+        "task".into()
     }
 }
 

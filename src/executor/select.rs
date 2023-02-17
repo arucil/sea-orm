@@ -124,8 +124,8 @@ where
 
     fn from_raw_query_result(res: QueryResult) -> Result<Self::Item, DbErr> {
         Ok((
-            M::from_query_result(&res, SelectA.as_str())?,
-            N::from_query_result_optional(&res, SelectB.as_str())?,
+            M::from_query_result(&res, SelectA.as_str().as_ref())?,
+            N::from_query_result_optional(&res, SelectB.as_str().as_ref())?,
         ))
     }
 }

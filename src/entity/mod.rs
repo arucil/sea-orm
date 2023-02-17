@@ -25,6 +25,7 @@
 /// use sea_orm::PrimaryKeyTrait;
 /// use sea_orm::RelationDef;
 /// use sea_orm::RelationTrait;
+/// 
 ///
 /// // Use [DeriveEntity] to derive the EntityTrait automatically
 /// #[derive(Copy, Clone, Default, Debug, DeriveEntity)]
@@ -32,8 +33,8 @@
 ///
 /// /// The [EntityName] describes the name of a table
 /// impl EntityName for Entity {
-///     fn table_name(&self) -> &str {
-///         "filling"
+///     fn table_name(&self) -> std::borrow::Cow<str> {
+///         "filling".into()
 ///     }
 /// }
 ///

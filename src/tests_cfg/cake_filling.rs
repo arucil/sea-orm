@@ -5,8 +5,8 @@ use crate::entity::prelude::*;
 pub struct Entity;
 
 impl EntityName for Entity {
-    fn table_name(&self) -> &str {
-        "cake_filling"
+    fn table_name(&self) -> std::borrow::Cow<str> {
+        "cake_filling".into()
     }
 }
 

@@ -575,8 +575,8 @@ mod tests {
             pub struct Entity;
 
             impl EntityName for Entity {
-                fn table_name(&self) -> &str {
-                    "hello"
+                fn table_name(&self) -> std::borrow::Cow<str> {
+                    "hello".into()
                 }
             }
 
@@ -675,13 +675,14 @@ mod tests {
         mod hello {
             use crate as sea_orm;
             use crate::entity::prelude::*;
+            
 
             #[derive(Copy, Clone, Default, Debug, DeriveEntity)]
             pub struct Entity;
 
             impl EntityName for Entity {
-                fn table_name(&self) -> &str {
-                    "hello"
+                fn table_name(&self) -> std::borrow::Cow<str> {
+                    "hello".into()
                 }
             }
 
@@ -782,13 +783,14 @@ mod tests {
         mod hello {
             use crate as sea_orm;
             use crate::entity::prelude::*;
+            
 
             #[derive(Copy, Clone, Default, Debug, DeriveEntity)]
             pub struct Entity;
 
             impl EntityName for Entity {
-                fn table_name(&self) -> &str {
-                    "hello"
+                fn table_name(&self) -> std::borrow::Cow<str> {
+                    "hello".into()
                 }
             }
 
@@ -889,13 +891,14 @@ mod tests {
             use crate as sea_orm;
             use crate::entity::prelude::*;
             use crate::sea_query::{Alias, Expr, SimpleExpr};
+            
 
             #[derive(Copy, Clone, Default, Debug, DeriveEntity)]
             pub struct Entity;
 
             impl EntityName for Entity {
-                fn table_name(&self) -> &str {
-                    "hello"
+                fn table_name(&self) -> std::borrow::Cow<str> {
+                    "hello".into()
                 }
             }
 
@@ -1020,13 +1023,14 @@ mod tests {
             use crate as sea_orm;
             use crate::entity::prelude::*;
             use crate::sea_query::{Alias, Expr, SimpleExpr};
+            
 
             #[derive(Copy, Clone, Default, Debug, DeriveEntity)]
             pub struct Entity;
 
             impl EntityName for Entity {
-                fn table_name(&self) -> &str {
-                    "hello"
+                fn table_name(&self) -> std::borrow::Cow<str> {
+                    "hello".into()
                 }
             }
 
@@ -1151,13 +1155,14 @@ mod tests {
             use crate as sea_orm;
             use crate::entity::prelude::*;
             use crate::sea_query::{Alias, Expr, SimpleExpr};
+            
 
             #[derive(Copy, Clone, Default, Debug, DeriveEntity)]
             pub struct Entity;
 
             impl EntityName for Entity {
-                fn table_name(&self) -> &str {
-                    "hello"
+                fn table_name(&self) -> std::borrow::Cow<str> {
+                    "hello".into()
                 }
             }
 

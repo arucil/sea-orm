@@ -5,12 +5,13 @@ use crate::{
 };
 use sea_query::{Alias, Iden, IntoIden, IntoTableRef, IntoValueTuple, TableRef};
 use std::fmt::Debug;
+
 pub use strum::IntoEnumIterator as Iterable;
 
 /// Ensure the identifier for an Entity can be converted to a static str
 pub trait IdenStatic: Iden + Copy + Debug + 'static {
     /// Method to call to get the static string identity
-    fn as_str(&self) -> &str;
+    fn as_str(&self) -> std::borrow::Cow<str>;
 }
 
 /// A Trait for mapping an Entity to a database table
@@ -21,10 +22,10 @@ pub trait EntityName: IdenStatic + Default {
     }
 
     /// Get the name of the table
-    fn table_name(&self) -> &str;
+    fn table_name(&self) -> std::borrow::Cow<str>;
 
     /// Get the name of the module from the invoking `self.table_name()`
-    fn module_name(&self) -> &str {
+    fn module_name(&self) -> std::borrow::Cow<str> {
         self.table_name()
     }
 
