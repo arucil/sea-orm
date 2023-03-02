@@ -366,7 +366,7 @@ impl DatabaseConnection {
         mocker.drain_transaction_log()
     }
 
-    /// Take the transaction log as a collection Vec<[crate::Transaction]>
+    /// Move the transaction log out of the connection as a collection Vec<[crate::Transaction]>
     ///
     /// # Panics
     ///
