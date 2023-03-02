@@ -365,6 +365,20 @@ impl DatabaseConnection {
             .expect("Fail to acquire mocker");
         mocker.drain_transaction_log()
     }
+
+    /// Take the transaction log as a collection Vec<[crate::Transaction]>
+    ///
+    /// # Panics
+    ///
+    /// Panics if the mocker mutex is being held by another thread.
+    pub fn take_transaction_log(&self) -> Vec<crate::Transaction> {
+        let mut mocker = self
+            .as_mock_connection()
+            .get_mocker_mutex()
+            .lock()
+            .expect("Fail to acquire mocker");
+        mocker.drain_transaction_log()
+    }
 }
 
 impl DatabaseConnection {
