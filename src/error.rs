@@ -139,3 +139,23 @@ where
 {
     DbErr::Json(s.to_string())
 }
+
+#[cfg(all(feature = "sqlx-dep"))]
+impl DbErr {
+    /// Returns if the error indicates that a column is not found in the query.
+    pub fn is_column_not_found_error(&self) -> bool {
+        match self {
+            Self::Type(err) if err.starts_with("A null value was encountered") => true,
+            Self::Query(RuntimeErr::SqlxError(sqlx::error::Error::ColumnNotFound(_))) => true,
+            _ => false,
+        }
+    }
+}
+
+#[cfg(not(all(feature = "sqlx-dep")))]
+impl DbErr {
+    /// Returns if the error indicates that a column is not found in the query.
+    pub fn is_column_not_found_error(&self) -> bool {
+        matches!(self, Self::Type(err) if err.starts_with("A null value was encountered"))
+    }
+}

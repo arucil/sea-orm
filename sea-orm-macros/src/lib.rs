@@ -590,7 +590,7 @@ pub fn derive_active_enum(input: TokenStream) -> TokenStream {
 /// }
 /// ```
 #[cfg(feature = "derive")]
-#[proc_macro_derive(FromQueryResult)]
+#[proc_macro_derive(FromQueryResult, attributes(sea_orm))]
 pub fn derive_from_query_result(input: TokenStream) -> TokenStream {
     let DeriveInput { ident, data, .. } = parse_macro_input!(input);
 
