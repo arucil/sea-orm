@@ -9,6 +9,8 @@ mod derives;
 #[cfg(feature = "strum")]
 mod strum;
 
+mod util;
+
 /// Create an Entity
 ///
 /// ### Usage
